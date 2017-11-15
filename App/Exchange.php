@@ -42,22 +42,27 @@ class Exchange
 /*
 - Si le receiver est mineur, lui envoyer un mail
 */
-    public function isValid(){
-        var_dump($this->checkDates());
+    public function save(){
         return isset($this->receiver)
             && $this->receiver->isValid()
             && isset($this->product)
             && $this->product->isValid()
-            && $this->checkDates();
+            && $this->checkDates()
+            && $this->checkAgeReceiver();
     }
 
     public function checkDates(){
         return strtotime($this->starting_date) >= strtotime(date(DATE_RSS))
             && strtotime($this->starting_date) > strtotime($this->ending_date);
     }
-    //Enregistrer
-    public function save(){
 
+    public function checkAgeReceiver(){
+        echo "Age of my receiver : " . $this->receiver->getAge() . "\n";
+        if ($this->receiver->getAge() < 18){
+            $message = "Vous n'avez pas l'âge requis pour participer à une transaction désolé.";
+            mail($this->receiver->getEmail(), 'Exchange - Too young son', $message);
+        }
+        return $this->receiver->getAge() >= 18;
     }
 
     /**
