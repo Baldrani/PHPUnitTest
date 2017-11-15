@@ -29,29 +29,30 @@ class Exchange
      * @param $emailSender
      * @param $DBConnection
      */
-    public function __construct($receiver, $product, $owner, $starting_date, $ending_date, $emailSender, $DBConneciton)
+    public function __construct($receiver, $product, $owner, $starting_date, $ending_date, $emailSender)
     {
         $this->receiver = $receiver;
         $this->product = $product;
-        $this->owner = $owner; //Ca marche ça ?
+        $this->owner = $owner;
         $this->starting_date = $starting_date;
         $this->ending_date = $ending_date;
         $this->emailSender = $emailSender;
-        $this->DBConnection = $DBConnection;
+        //$this->DBConnection = $DBConnection;
     }
 /*
 - Si le receiver est mineur, lui envoyer un mail
 */
     public function isValid(){
+        var_dump($this->checkDates());
         return isset($this->receiver)
             && $this->receiver->isValid()
             && isset($this->product)
             && $this->product->isValid()
-            && checkDates();
+            && $this->checkDates();
     }
 
     public function checkDates(){
-        return strtotime($this->starting_date) > strtotime(date(DATE_RSS))
+        return strtotime($this->starting_date) >= strtotime(date(DATE_RSS))
             && strtotime($this->starting_date) > strtotime($this->ending_date);
     }
     //Enregistrer
