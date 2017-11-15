@@ -1,6 +1,6 @@
 <?php
 
-require '../Product.php';
+require '../App/Product.php';
 
 class ProductTest extends PHPUnit_Framework_TestCase
 {

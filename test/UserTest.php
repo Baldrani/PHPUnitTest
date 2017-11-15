@@ -1,6 +1,6 @@
 <?php
 
-require './User.php';
+require '../App/User.php';
 
 class UserTest extends PHPUnit_Framework_TestCase
 {
@@ -57,5 +57,3 @@ class UserTest extends PHPUnit_Framework_TestCase
     }
 
 }
-
-?>

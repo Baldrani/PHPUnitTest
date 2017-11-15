@@ -6,6 +6,9 @@
  * Date: 15/11/17
  * Time: 21:37
  */
+
+require 'Product.php';
+
 class Exchange
 {
     private $receiver;
@@ -30,7 +33,7 @@ class Exchange
     {
         $this->receiver = $receiver;
         $this->product = $product;
-        $this->owner = $this->product->owner; //Ca marche ça ?
+        $this->owner = $owner; //Ca marche ça ?
         $this->starting_date = $starting_date;
         $this->ending_date = $ending_date;
         $this->emailSender = $emailSender;
