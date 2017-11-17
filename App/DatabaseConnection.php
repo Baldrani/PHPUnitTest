@@ -8,6 +8,10 @@ class DatabaseConnection
 		//
 	}
 
+	public function isConnected(){
+        //Check connection
+	}
+
 	public function saveProduct($product)
 	{
 		throw new Exception('Not implemented');

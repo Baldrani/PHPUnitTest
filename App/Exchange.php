@@ -29,7 +29,7 @@ class Exchange
      * @param $emailSender
      * @param $DBConnection
      */
-    public function __construct($receiver, $product, $owner, $starting_date, $ending_date, $emailSender)
+    public function __construct($receiver, $product, $owner, $starting_date, $ending_date, $emailSender, $DBConnection)
     {
         $this->receiver = $receiver;
         $this->product = $product;
@@ -37,7 +37,7 @@ class Exchange
         $this->starting_date = $starting_date;
         $this->ending_date = $ending_date;
         $this->emailSender = $emailSender;
-        //$this->DBConnection = $DBConnection;
+        $this->DBConnection = $DBConnection;
     }
 /*
 - Si le receiver est mineur, lui envoyer un mail
@@ -48,12 +48,13 @@ class Exchange
             && isset($this->product)
             && $this->product->isValid()
             && $this->checkDates()
-            && $this->checkAgeReceiver();
+            && $this->checkAgeReceiver()
+            && $this->DBConnection->isConnected();
     }
 
     public function checkDates(){
         return strtotime($this->starting_date) >= strtotime(date(DATE_RSS))
-            && strtotime($this->starting_date) > strtotime($this->ending_date);
+            && strtotime($this->ending_date) > strtotime($this->starting_date);
     }
 
     public function checkAgeReceiver(){
@@ -164,16 +165,16 @@ class Exchange
     /**
      * @return mixed
      */
-    public function getDBConneciton()
+    public function getDBConnection()
     {
-        return $this->DBConneciton;
+        return $this->DBConnection;
     }
 
     /**
      * @param mixed $DBConneciton
      */
-    public function setDBConneciton($DBConneciton)
+    public function setDBConnection($DBConnection)
     {
-        $this->DBConneciton = $DBConneciton;
+        $this->DBConnection = $DBConnection;
     }
 }
